@@ -1,0 +1,36 @@
+{
+  "name": "action-item-app",
+  "version": "1.0.0",
+  "description": "Local action item tagging app",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.46",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "electron": "^41.1.1",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-plugin-electron": "^0.28.1",
+    "wait-on": "^7.2.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.7"
+  }
+}
