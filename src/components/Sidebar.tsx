@@ -64,7 +64,7 @@ function Sidebar() {
   return (
     <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
       <div className="p-6 border-b border-gray-200">
-        <h2 className="text-xl font-bold text-gray-900">Action Items</h2>
+        <h2 className="text-xl font-bold text-gray-900">Pinboard</h2>
       </div>
 
       <nav className="flex-1 overflow-y-auto p-4">
