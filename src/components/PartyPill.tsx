@@ -13,9 +13,9 @@ function PartyPill({ party, selected = false, onClick }: PartyPillProps) {
     ? `${baseClasses} cursor-pointer ${
         selected
           ? 'bg-blue-600 text-white'
-          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500'
       }`
-    : `${baseClasses} bg-blue-100 text-blue-700`;
+    : `${baseClasses} bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300`;
 
   return (
     <span

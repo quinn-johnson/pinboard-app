@@ -2,6 +2,60 @@ import { useState } from 'react';
 import { useStore } from '../store';
 import { db } from '../db';
 import { isReminderDue } from '../utils/reminders';
+import { Theme } from '../store';
+
+function ThemeToggle() {
+  const { theme, setTheme } = useStore();
+
+  const options: { value: Theme; label: string; icon: React.ReactNode }[] = [
+    {
+      value: 'light',
+      label: 'Light',
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+        </svg>
+      ),
+    },
+    {
+      value: 'system',
+      label: 'System',
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+    },
+    {
+      value: 'dark',
+      label: 'Dark',
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <div className="flex rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+      {options.map(opt => (
+        <button
+          key={opt.value}
+          onClick={() => setTheme(opt.value)}
+          title={opt.label}
+          className={`flex-1 flex items-center justify-center p-2 transition-colors ${
+            theme === opt.value
+              ? 'bg-blue-600 text-white'
+              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+          }`}
+        >
+          {opt.icon}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function Sidebar() {
   const { parties, selectedPartyId, selectedView, setSelectedPartyId, setSelectedView, items, refreshParties, refreshItems } = useStore();
@@ -47,7 +101,7 @@ function Sidebar() {
     try {
       await db.updatePartyName(editingPartyId, editingPartyName);
       await refreshParties();
-      await refreshItems(); // Refresh to update party names in items
+      await refreshItems();
       setEditingPartyId(null);
       setEditingPartyName('');
     } catch (err) {
@@ -62,9 +116,9 @@ function Sidebar() {
   };
 
   return (
-    <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-xl font-bold text-gray-900">Pinboard</h2>
+    <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Pinboard</h2>
       </div>
 
       <nav className="flex-1 overflow-y-auto p-4">
@@ -72,16 +126,16 @@ function Sidebar() {
           onClick={() => setSelectedView('all')}
           className={`w-full text-left px-4 py-3 rounded-lg mb-2 flex items-center justify-between transition-colors ${
             selectedView === 'all'
-              ? 'bg-blue-50 text-blue-700 font-medium'
-              : 'text-gray-700 hover:bg-gray-50'
+              ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
           }`}
         >
           <span>All Items</span>
           <div className="flex items-center gap-2">
             <span className={`text-sm px-2 py-0.5 rounded-full ${
               selectedView === 'all'
-                ? 'bg-blue-100 text-blue-700'
-                : 'bg-gray-100 text-gray-600'
+                ? 'bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
             }`}>
               {allActiveCount}
             </span>
@@ -97,8 +151,8 @@ function Sidebar() {
           onClick={() => setSelectedView('starred')}
           className={`w-full text-left px-4 py-3 rounded-lg mb-2 flex items-center justify-between transition-colors ${
             selectedView === 'starred'
-              ? 'bg-yellow-50 text-yellow-800 font-medium'
-              : 'text-gray-700 hover:bg-gray-50'
+              ? 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 font-medium'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
           }`}
         >
           <span className="flex items-center gap-2">
@@ -110,8 +164,8 @@ function Sidebar() {
           <div className="flex items-center gap-2">
             <span className={`text-sm px-2 py-0.5 rounded-full ${
               selectedView === 'starred'
-                ? 'bg-yellow-100 text-yellow-800'
-                : 'bg-gray-100 text-gray-600'
+                ? 'bg-yellow-100 dark:bg-yellow-800/50 text-yellow-800 dark:text-yellow-300'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
             }`}>
               {starredCount}
             </span>
@@ -125,7 +179,7 @@ function Sidebar() {
 
         {parties.length > 0 && (
           <div className="mt-6">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-4 mb-2">
+            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 mb-2">
               Parties
             </h3>
             <div className="space-y-1">
@@ -136,7 +190,7 @@ function Sidebar() {
 
                 if (isEditing) {
                   return (
-                    <div key={party.id} className="px-4 py-3 bg-blue-50 rounded-lg">
+                    <div key={party.id} className="px-4 py-3 bg-blue-50 dark:bg-blue-900/40 rounded-lg">
                       <input
                         type="text"
                         value={editingPartyName}
@@ -148,11 +202,11 @@ function Sidebar() {
                             handleCancelEdit();
                           }
                         }}
-                        className="w-full px-2 py-1 text-sm border border-blue-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-2 py-1 text-sm border border-blue-300 dark:border-blue-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         autoFocus
                       />
                       {error && (
-                        <p className="text-xs text-red-600 mt-1">{error}</p>
+                        <p className="text-xs text-red-600 dark:text-red-400 mt-1">{error}</p>
                       )}
                       <div className="flex gap-2 mt-2">
                         <button
@@ -163,7 +217,7 @@ function Sidebar() {
                         </button>
                         <button
                           onClick={handleCancelEdit}
-                          className="px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                          className="px-2 py-1 text-xs bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-500"
                         >
                           Cancel
                         </button>
@@ -178,16 +232,16 @@ function Sidebar() {
                       onClick={() => setSelectedPartyId(party.id)}
                       className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between transition-colors ${
                         selectedPartyId === party.id
-                          ? 'bg-blue-50 text-blue-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-50'
+                          ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                       }`}
                     >
                       <span className="truncate pr-2">{party.name}</span>
                       <div className="flex items-center gap-2">
                         <span className={`text-sm px-2 py-0.5 rounded-full ${
                           selectedPartyId === party.id
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'bg-gray-100 text-gray-600'
+                            ? 'bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300'
+                            : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                         }`}>
                           {count}
                         </span>
@@ -203,7 +257,7 @@ function Sidebar() {
                         e.stopPropagation();
                         handleStartEdit(party.id, party.name);
                       }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-blue-600 hover:bg-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white dark:hover:bg-gray-600 rounded opacity-0 group-hover:opacity-100 transition-opacity"
                       title="Edit party name"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,6 +271,10 @@ function Sidebar() {
           </div>
         )}
       </nav>
+
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

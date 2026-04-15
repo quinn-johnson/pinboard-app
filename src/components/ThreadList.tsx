@@ -53,15 +53,15 @@ function ThreadList({ itemId, threads, onUpdate }: ThreadListProps) {
 
 
   return (
-    <div className="mt-3 border-t border-gray-200 pt-3">
+    <div className="mt-3 border-t border-gray-200 dark:border-gray-600 pt-3">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="text-sm font-medium text-gray-700">
+        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
           Notes & Context {threads.length > 0 && `(${threads.length})`}
         </h4>
         {!isAdding && (
           <button
             onClick={() => setIsAdding(true)}
-            className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
           >
             + Add Note
           </button>
@@ -73,10 +73,10 @@ function ThreadList({ itemId, threads, onUpdate }: ThreadListProps) {
           {threads.map(thread => (
             <div
               key={thread.id}
-              className="bg-gray-50 rounded-lg p-3 text-sm border border-gray-100 group"
+              className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 text-sm border border-gray-100 dark:border-gray-600 group"
             >
               <div className="flex items-start justify-between gap-2">
-                <div className="text-gray-800 break-words flex-1">
+                <div className="text-gray-800 dark:text-gray-200 break-words flex-1">
                   {parseMarkdown(thread.text)}
                 </div>
                 <button
@@ -89,19 +89,19 @@ function ThreadList({ itemId, threads, onUpdate }: ThreadListProps) {
                   </svg>
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-2">{formatDate(thread.createdAt)}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{formatDate(thread.createdAt)}</p>
             </div>
           ))}
         </div>
       )}
 
       {isAdding && (
-        <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-700">
           <textarea
             value={newThreadText}
             onChange={(e) => setNewThreadText(e.target.value)}
             placeholder="Add context, notes, or links... (supports **bold**, *italic*, ~~strikethrough~~, - bullets)"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-mono text-sm"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
             rows={3}
             autoFocus
           />
@@ -124,7 +124,7 @@ function ThreadList({ itemId, threads, onUpdate }: ThreadListProps) {
                 setNewThreadText('');
                 setError('');
               }}
-              className="px-3 py-1.5 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300"
+              className="px-3 py-1.5 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
             >
               Cancel
             </button>
@@ -133,7 +133,7 @@ function ThreadList({ itemId, threads, onUpdate }: ThreadListProps) {
       )}
 
       {threads.length === 0 && !isAdding && (
-        <p className="text-xs text-gray-500 italic">No notes yet</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 italic">No notes yet</p>
       )}
     </div>
   );

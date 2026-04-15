@@ -140,11 +140,11 @@ const parseInlineMarkdown = (text: string): React.ReactNode => {
 };
 
 export const MarkdownHelp = () => (
-  <div className="text-xs text-gray-500 space-y-1 p-2 bg-gray-50 rounded border border-gray-200">
-    <div className="font-medium text-gray-700 mb-1">Formatting:</div>
-    <div><code className="bg-gray-200 px-1 rounded">**bold**</code> or <code className="bg-gray-200 px-1 rounded">__bold__</code> → <strong>bold</strong></div>
-    <div><code className="bg-gray-200 px-1 rounded">*italic*</code> or <code className="bg-gray-200 px-1 rounded">_italic_</code> → <em>italic</em></div>
-    <div><code className="bg-gray-200 px-1 rounded">~~strikethrough~~</code> → <span className="line-through">strikethrough</span></div>
-    <div><code className="bg-gray-200 px-1 rounded">- bullet point</code> → bullet list</div>
+  <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1 p-2 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-600">
+    <div className="font-medium text-gray-700 dark:text-gray-300 mb-1">Formatting:</div>
+    <div><code className="bg-gray-200 dark:bg-gray-600 px-1 rounded">**bold**</code> or <code className="bg-gray-200 dark:bg-gray-600 px-1 rounded">__bold__</code> → <strong>bold</strong></div>
+    <div><code className="bg-gray-200 dark:bg-gray-600 px-1 rounded">*italic*</code> or <code className="bg-gray-200 dark:bg-gray-600 px-1 rounded">_italic_</code> → <em>italic</em></div>
+    <div><code className="bg-gray-200 dark:bg-gray-600 px-1 rounded">~~strikethrough~~</code> → <span className="line-through">strikethrough</span></div>
+    <div><code className="bg-gray-200 dark:bg-gray-600 px-1 rounded">- bullet point</code> → bullet list</div>
   </div>
 );

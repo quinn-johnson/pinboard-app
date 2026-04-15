@@ -116,12 +116,12 @@ function ItemCard({ item }: ItemCardProps) {
   return (
     <div className={`rounded-lg border p-4 shadow-sm ${
       item.isCompleted
-        ? 'opacity-60 bg-white border-gray-200'
+        ? 'opacity-60 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
         : isDue
-        ? 'border-2 border-orange-400 bg-orange-50'
+        ? 'border-2 border-orange-400 bg-orange-50 dark:bg-orange-900/20'
         : item.isStarred
-        ? 'bg-yellow-50 border-yellow-200 border-2'
-        : 'bg-white border-gray-200'
+        ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 border-2'
+        : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
     }`}>
       <div className="flex items-start gap-3">
         <div className="flex items-center gap-2 mt-1">
@@ -152,14 +152,14 @@ function ItemCard({ item }: ItemCardProps) {
               <textarea
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-mono text-sm"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 rows={3}
               />
               <div className="mt-2">
                 <MarkdownHelp />
               </div>
               {error && (
-                <p className="text-red-600 text-sm mt-2">{error}</p>
+                <p className="text-red-600 dark:text-red-400 text-sm mt-2">{error}</p>
               )}
               <div className="flex gap-2 mt-2">
                 <button
@@ -174,23 +174,23 @@ function ItemCard({ item }: ItemCardProps) {
                     setEditText(item.text);
                     setError('');
                   }}
-                  className="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300"
+                  className="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                 >
                   Cancel
                 </button>
               </div>
             </div>
           ) : (
-            <div className={`text-gray-900 ${item.isCompleted ? 'opacity-60' : ''}`}>
+            <div className={`text-gray-900 dark:text-gray-100 ${item.isCompleted ? 'opacity-60' : ''}`}>
               {parseMarkdown(item.text)}
             </div>
           )}
 
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-gray-400">
               {formatDate(item.createdAt)}
             </span>
-            <span className="text-gray-300">•</span>
+            <span className="text-gray-300 dark:text-gray-600">•</span>
             {item.parties.map(party => (
               <div key={party.id} className="relative group">
                 <PartyPill party={party} />
@@ -225,7 +225,7 @@ function ItemCard({ item }: ItemCardProps) {
             )}
             {item.reminderAt && !isEditingReminder && (
               <>
-                <span className="text-gray-300">•</span>
+                <span className="text-gray-300 dark:text-gray-600">•</span>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   isDue
                     ? 'bg-orange-100 text-orange-700 font-medium'
@@ -238,15 +238,15 @@ function ItemCard({ item }: ItemCardProps) {
           </div>
 
           {isEditingReminder && (
-            <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Set Reminder
               </label>
               <input
                 type="datetime-local"
                 value={reminderDateTime}
                 onChange={(e) => setReminderDateTime(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               />
               <div className="flex gap-2 mt-3">
                 <button
@@ -268,7 +268,7 @@ function ItemCard({ item }: ItemCardProps) {
                     setIsEditingReminder(false);
                     setReminderDateTime(item.reminderAt ? formatDateTimeForInput(item.reminderAt) : getDefaultReminderTime());
                   }}
-                  className="px-3 py-1.5 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300"
+                  className="px-3 py-1.5 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                 >
                   Cancel
                 </button>
@@ -277,7 +277,7 @@ function ItemCard({ item }: ItemCardProps) {
           )}
 
           {error && !isEditing && (
-            <p className="text-red-600 text-sm mt-2">{error}</p>
+            <p className="text-red-600 dark:text-red-400 text-sm mt-2">{error}</p>
           )}
         </div>
 
@@ -285,7 +285,7 @@ function ItemCard({ item }: ItemCardProps) {
           {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               title="Edit text"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

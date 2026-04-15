@@ -34,12 +34,12 @@ function ItemList() {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Active ({activeItems.length})
         </h2>
         {activeItems.length === 0 ? (
-          <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
-            <p className="text-gray-500">No active items</p>
+          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 p-8 text-center">
+            <p className="text-gray-500 dark:text-gray-400">No active items</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -52,7 +52,7 @@ function ItemList() {
 
       {completedItems.length > 0 && (
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Completed ({completedItems.length})
           </h2>
           <div className="space-y-3">

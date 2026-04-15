@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { Party, Item } from './types';
 import { db } from './db';
 
+export type Theme = 'light' | 'dark' | 'system';
+
 interface AppState {
   parties: Party[];
   items: Item[];
@@ -11,6 +13,7 @@ interface AppState {
   selectedPartyIds: string[];
   isCreatingParty: boolean;
   newPartyName: string;
+  theme: Theme;
 
   setParties: (parties: Party[]) => void;
   setItems: (items: Item[]) => void;
@@ -21,9 +24,12 @@ interface AppState {
   togglePartySelection: (id: string) => void;
   setIsCreatingParty: (isCreating: boolean) => void;
   setNewPartyName: (name: string) => void;
+  setTheme: (theme: Theme) => void;
   refreshItems: () => Promise<void>;
   refreshParties: () => Promise<void>;
 }
+
+const storedTheme = (localStorage.getItem('theme') as Theme) || 'system';
 
 export const useStore = create<AppState>((set, get) => ({
   parties: [],
@@ -34,6 +40,7 @@ export const useStore = create<AppState>((set, get) => ({
   selectedPartyIds: [],
   isCreatingParty: false,
   newPartyName: '',
+  theme: storedTheme,
 
   setParties: (parties) => set({ parties }),
   setItems: (items) => set({ items }),
@@ -52,6 +59,10 @@ export const useStore = create<AppState>((set, get) => ({
 
   setIsCreatingParty: (isCreating) => set({ isCreatingParty: isCreating }),
   setNewPartyName: (name) => set({ newPartyName: name }),
+  setTheme: (theme) => {
+    localStorage.setItem('theme', theme);
+    set({ theme });
+  },
 
   refreshItems: async () => {
     // Always load all items so sidebar counts are accurate
